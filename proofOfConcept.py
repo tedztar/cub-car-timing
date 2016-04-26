@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import RPi.GPIO as GPIO
 import time
 import os
@@ -8,10 +6,15 @@ DEBUG = 1
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-led=23
-start=24
-lane1=25
-lane2=22
+#use for the gpio pins, no pins set
+led=0
+start=0
+lane1=0
+lane2=0
+lane3=0
+lane4=0
+lane5=0
+lane6=0
 
 def dptime ():
     waiting = 0
@@ -20,14 +23,18 @@ def dptime ():
     GPIO.setup(start, GPIO.IN) # start gate / stop gate
     GPIO.setup(lane1, GPIO.IN) # lane1
     GPIO.setup(lane2, GPIO.IN) # lane2
+    GPIO.setup(lane3, GPIO.IN) # lane2
+    GPIO.setup(lane4, GPIO.IN) # lane2
+    GPIO.setup(lane5, GPIO.IN) # lane2
+    GPIO.setup(lane6, GPIO.IN) # lane2
 
-    print "\nSTART YOUR ENGINES!"
+    print ("start your engins")
 
     # wait for start button to be pressed
     while (GPIO.input(start) == GPIO.LOW):
         waiting += 1
 
-    print "\nSOMETIMES YOU GOTTA RACE..."
+    print ("\nSOMETIMES YOU GOTTA RACE...")
 
     # start the race
     start = time.time()
@@ -44,6 +51,8 @@ def dptime ():
     lane2Time = 0
     lane3Time = 0
     lane4Time = 0
+    lane5Time = 0
+    lane6Time = 0
 
     while (done == 0):
        time.sleep(0.01)
@@ -53,25 +62,46 @@ def dptime ():
            done = time.time() - start
        else:
            # lane1 finished aka light blocked
-           if (lane1 == 0 and GPIO.input(lane1) == GPIO.LOW):
-               lane1 = time.time() - start
-               print "\nLANE1: " , '{0:.4g}'.format(lane1)
+           if (lane1Time == 0 and GPIO.input(lane1) == GPIO.LOW):
+               lane1Time = time.time() - start
+               print ("\nLANE1: ") , '{0:.4g}'.format(lane1Time)
 
            # lane2 finished aka light blocked
-           if (lane2 == 0 and GPIO.input(lane2) == GPIO.LOW):
-               lane2 = time.time() - start
-               print "\nLANE2: " , '{0:.4g}'.format(lane2)
+           if (lane2Time == 0 and GPIO.input(lane2) == GPIO.LOW):
+               lane2Time = time.time() - start
+               print ("\nLANE2: ") , '{0:.4g}'.format(lane2Time)
+
+           # lane3 finished aka light blocked
+           if (lane3Time == 0 and GPIO.input(lane3) == GPIO.LOW):
+               lane3Time = time.time() - start
+               print ("\nLANE2: ") , '{0:.4g}'.format(lane3Time)
+               
+           # lane4 finished aka light blocked
+           if (lane4Time == 0 and GPIO.input(lane4) == GPIO.LOW):
+               lane4Time = time.time() - start
+               print ("\nLANE2: ") , '{0:.4g}'.format(lane4Time)
+
+           # lane5 finished aka light blocked
+           if (lane5Time == 0 and GPIO.input(lane5) == GPIO.LOW):
+               lane5Time = time.time() - start
+               print ("\nLANE2: ") , '{0:.4g}'.format(lane5Time)
+
+           # lane6 finished aka light blocked
+           if (lane6Time == 0 and GPIO.input(lane6) == GPIO.LOW):
+               lane6Time = time.time() - start
+               print ("\nLANE2: ") , '{0:.4g}'.format(lane6Time)
+        
 
            # all lanes finished
-           if (done == 0 and lane1 != 0 and lane2 != 0):
+           if (done == 0 and lane1 != 0 and lane2 != 0 and lane3 != 0 and lane4 != 0 and lane5 != 0 and lane6 != 0):
                done = time.time() - start
 
     # turn light off
     GPIO.output(led, GPIO.LOW)
-    print "\nDONE: " , '{0:.4g}'.format(done)
+    print ("\nDONE: ") , '{0:.4g}'.format(done)
     
-    print "/nLane1" + lane1Time
-    print "/nLane2" + lane2Time
+    print ("/nLane1") + lane1Time
+    print ("/nLane2") + lane2Time
     # debounce start/stop button
     time.sleep(1)
     dptime()
