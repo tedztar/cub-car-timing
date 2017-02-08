@@ -20,13 +20,13 @@ def dptime ():
     waiting = 0
     GPIO.setup(led, GPIO.OUT) # led
     GPIO.output(led, GPIO.LOW)
-    GPIO.setup(start, GPIO.IN) # start gate / stop gate
-    GPIO.setup(lane1, GPIO.IN) # lane1
-    GPIO.setup(lane2, GPIO.IN) # lane2
-    GPIO.setup(lane3, GPIO.IN) # lane2
-    GPIO.setup(lane4, GPIO.IN) # lane2
-    GPIO.setup(lane5, GPIO.IN) # lane2
-    GPIO.setup(lane6, GPIO.IN) # lane2
+    GPIO.setup(start, GPIO.IN, pull_up_down=GPIO.PUD_UP) # start gate / stop gate
+    GPIO.setup(lane1, GPIO.IN, pull_up_down=GPIO.PUD_UP) # lane1
+    GPIO.setup(lane2, GPIO.IN, pull_up_down=GPIO.PUD_UP) # lane2
+    GPIO.setup(lane3, GPIO.IN, pull_up_down=GPIO.PUD_UP) # lane2
+    GPIO.setup(lane4, GPIO.IN, pull_up_down=GPIO.PUD_UP) # lane2
+    GPIO.setup(lane5, GPIO.IN, pull_up_down=GPIO.PUD_UP) # lane2
+    GPIO.setup(lane6, GPIO.IN, pull_up_down=GPIO.PUD_UP) # lane2
 
     print ("start your engins")
 
