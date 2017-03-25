@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-import os
+
 
 DEBUG = 1
 GPIO.setmode(GPIO.BCM)
